@@ -41,7 +41,7 @@ def agregar_mensajes_log(texto):
     db.session.add(nuevo_registro)
     db.session.commit()
 
-TOKEN_VERIFICACION = 'whatsapp-drei'
+TOKEN_VERIFICACION = "DREIWHTS"
 @app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     if request.method == 'GET':
@@ -49,6 +49,7 @@ def webhook():
         return challengue
     elif request.method == 'POST':
         response = recibir_mensaje(request)
+        return response
 
 def verificar_token(req):
     token = req.args.get('hub.verify_token')
