@@ -8,14 +8,12 @@ app = Flask(__name__)
 @app.route('/welcome', methods= ['GET'])
 def index():
     return "Version de prueba 2s"
-
 @app.route('/webhook', methods= ['GET'])
 def verificar_token():
     try:
         token = request.args.get('hub.verify_token')
         challengue = request.args.get('hub.challengue')
-
-        if token == sett.token and challengue !=None:
+        if token and challengue == sett.TOKEN_VERIFICACION:
             return challengue
         else: 
             return 'token incorrecto'
@@ -35,7 +33,7 @@ def recibir_mensajes():
         contacts = value['contacts'][0]
         name = contacts['profile']['name']
         text = servicios.enviar_mensaje(message)
-        services = servicios.administrar_chatbot(text,number,messageId, name)
+        servicios.administrar_chatbot(text,number,messageId, name)
         return 'enviado'
     except Exception as e:
         return 'no enviado' + str(e)
